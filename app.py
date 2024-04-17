@@ -27,16 +27,18 @@ data = load_data(10000)
 data_load_state.text("Done! (using st.cache_data)")
 
 
-st.subheader('Raw data')
+st.subheader('Students accounts data')
 st.write(data)
 
-st.subheader('Total number of charges w.r.t Program')
+st.subheader('Total number of charges w.r.t Program - using python')
 
 # Calculate the number of pickups by hour
 hourly_pickups = data.groupby(data['program']).size()
 
 st.bar_chart(hourly_pickups)
 
+
+st.subheader('Sample D3.JS file')
 
 def load_d3js_file(file_path):
     with open(file_path, 'r') as file:
@@ -46,10 +48,13 @@ d3js_code = load_d3js_file('d3.html')  # Replace with the path to your D3.js HTM
 
 st.components.v1.html(d3js_code, height=600) 
 
+st.subheader('Some other D3.JS code')
+
 # Load the D3.js library
 d3_script = """
 <script src="https://d3js.org/d3.v6.min.js"></script>
 """
+
 
 # Define the D3.js visualization code
 d3_visualization = """

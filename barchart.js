@@ -4,7 +4,7 @@ const margin = { top: 30, right: 30, bottom: 70, left: 60 },
     height = 400 - margin.top - margin.bottom;
 
 // Append the svg object to the body of the page
-const svg = d3.select("#d3barchart")
+const svg = d3.select("#root")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -44,3 +44,6 @@ d3.csv("data.csv").then(function (data) {
         .attr("y", d => y(d.population))
         .attr("height", d => height - y(d.population));
 });
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<App />, rootElement);

@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <h1>
+    Scatter Plot for the Cars Miles per gallons based on
+    Horsepower
+  </h1>
+  <head>
+    <title>Activity 8 Scatter Plot UN</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      h1 {
+        text-align: center;
+        color: red;
+      }
+      .tick text {
+        font-size: 20px;
+      }
+    </style>
+    <script src="https://unpkg.com/d3@6.7.0/dist/d3.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const {
+        csv,
+        select,
+        scaleLinear,
+        extent,
+        axisLeft,
+        axisBottom,
+      } = d3;
+      const csvUrl =
+        'https://raw.githubusercontent.com/uzairnaeem015/DVTask8Datasets/main/cars.csv';
+      const parseRow = (d) => {
+        return d;
+      }; //LOAD THE DATA
+      const xValue = (d) => d.Horsepower * 1;
+
+      const yValue = (d) => d.Miles_per_Gallon * 1;
+
+      const speciesValue = (d) => d.Origin;
+
+      const margin = {
+        top: 30,
+        right: 50,
+        bottom: 190,
+        left: 90,
+      };
+      const radius = 5;
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const svg = select('body')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+      const main = async () => {
+        const data = await csv(csvUrl, parseRow);
+
+        const x = scaleLinear()
+          .domain(extent(data, xValue))
+          .range([margin.left, width - margin.right]);
+
+        const y = scaleLinear()
+          .domain(extent(data, yValue))
+          .range([height - margin.bottom, margin.top]);
+
+        const marker = (d) => {
+          switch (d) {
+            case 'USA':
+              return 'skyblue';
+            case 'Japan':
+              return 'lightgreen';
+            default:
+              return 'orange';
+          }
+        };
+
+        const marks = data.map((d) => ({
+          x: x(xValue(d)),
+          y: y(yValue(d)),
+          Species: speciesValue(d),
+          color: marker(speciesValue(d)),
+        }));
+
+        svg
+          .selectAll('circle')
+          .data(marks)
+          .join('circle')
+          .attr('cx', (d) => d.x)
+          .attr('cy', (d) => d.y)
+          .attr('fill', (d) => d.color)
+          .attr('r', radius);
+        svg
+          .append('g')
+          .attr('transform', `translate(${margin.left},0)`)
+          .call(axisLeft(y));
+
+        svg
+          .append('text')
+          .attr('class', 'axis-label')
+          .attr('x', -innerHeight / 2)
+          .attr('y', 30)
+          .attr('fill', 'green')
+          .style('font', '20px times')
+          .style('text-anchor', 'middle')
+          .attr('transform', `rotate(-90)`)
+          .text('Miles per gallons');
+
+        svg
+          .append('g')
+          .attr(
+            'transform',
+            `translate(0,${height - margin.bottom})`,
+          )
+          .call(axisBottom(x));
+
+        svg
+          .append('text')
+          .attr('class', 'axis-label')
+          .attr('x', innerWidth / 2)
+          .attr('y', 380)
+          .attr('fill', 'green')
+          .style('font', '20px times')
+          .style('text-anchor', 'middle')
+          .text('Horsepower');
+      };
+      main();
+    </script>
+  </body>
+</html>

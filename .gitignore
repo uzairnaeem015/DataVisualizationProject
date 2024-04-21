@@ -25,3 +25,5 @@ yarn-error.log*
 
 # Ignore virtual environment folder
 .venv/
+
+*.pyc

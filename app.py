@@ -23,13 +23,13 @@ st.title('Ownership Financial Insights')
 
 # 1. as sidebar menu
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", "PowerBI", "Tableau", 'D3.JS', 'Python'], 
-    icons=['house', 'reception-4', "table", 'filetype-js', 'filetype-py'], 
+    selected = option_menu("Main Menu", ["Home", "Active Enrollment", "Financial Summary", 'Enrollment Demographics', 'Other'], 
+    icons=['table', 'reception-4', "currency-dollar", 'geo-alt-fill', 'three-dots'], 
     menu_icon="cast", default_index=0, orientation="vertical")
     
 
 DATE_COLUMN = 'post date'
-DATA_URL = ('student_accounts_encoded.csv')
+DATA_URL = ('Dataset/student_accounts_encoded.csv')
 
 @st.cache_data
 def load_data(nrows):
@@ -50,13 +50,13 @@ data_load_state.text("Done! (using st.cache_data)")
 
 if selected == "Home":
     home.main(st, data, iframe_style)
-elif selected == "PowerBI":
+elif selected == "Active Enrollment":       # PowerBi
     powerBi.main(st, data, iframe_style)
-elif selected == "Python":
+elif selected == "Financial Summary":       # Python
     python.main(st, data, iframe_style)
-elif selected == "D3.JS":
+elif selected == "Enrollment Demographics": # D3.JS
     d3js.main(st, data, iframe_style)
-elif selected == "Tableau":
+elif selected == "Other":                   # Tableau
     tableau.main(st, data, iframe_style)
 
 data_load_state.text("")

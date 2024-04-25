@@ -6,14 +6,14 @@ This project aims to address the complexities of financial management in private
 # Installation instructions
 
 Create an environment using venv
-'python -m venv .venv'
+`python -m venv .venv`
 
 Activate your environment
-Windows command prompt; if running on linux or macOS, please use different command
-'.venv\Scripts\activate.bat'
+Windows command prompt; if running on Linux or macOS, please use a different command based on OS
+`.venv\Scripts\activate.bat`
 
 Install Streamlit in your environment
-'pip install streamlit'
+`pip install streamlit`
 
 Run Streamlit app.
-'streamlit run app.py'
+`streamlit run app.py`

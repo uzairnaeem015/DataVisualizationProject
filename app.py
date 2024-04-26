@@ -1,62 +1,51 @@
 import streamlit as st
-import pandas as pd
 from streamlit_option_menu import option_menu
-
-import powerBi
-import home
-import python
-import d3js
-import tableau
-
+import dataset
+import activeEnrollment, home, financialAnalysis, demographics
 # Define the CSS style for the iframe
-iframe_style = f"""
-    width: 100%; 
-    height: 600px; 
-    border: none;
+iframe_style = """
+    width: 1024px; 
+    height: 612px;
+    border: none 
 """
 
-st.title('Ownership Financial Insights')
-
-#def on_change(key):
-    #selection = st.session_state[key]
-    #st.write(f"Selection changed to {selection}")
-
-# 1. as sidebar menu
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", "Active Enrollment", "Financial Summary", 'Enrollment Demographics', 'Other'], 
-    icons=['table', 'reception-4', "currency-dollar", 'geo-alt-fill', 'three-dots'], 
+    selected = option_menu("Main Menu", ["Home", "Dataset", "Active Enrollment", "Financial Analysis", 'Enrollment Demographics'], 
+    icons=['house', 'database', "bar-chart-line", 'currency-dollar', 'people', 'table'], 
     menu_icon="cast", default_index=0, orientation="vertical")
-    
-
-DATE_COLUMN = 'post date'
-DATA_URL = ('Dataset/student_accounts_encoded.csv')
-
-@st.cache_data
-def load_data(nrows):
-    data = pd.read_csv(DATA_URL, nrows=nrows)
-    lowercase = lambda x: str(x).lower()
-    data.rename(lowercase, axis='columns', inplace=True)
-    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-    return data
-
-
-# Create a text element and let the reader know the data is loading.
-data_load_state = st.text('Loading data...')
-# Load 10,000 rows of data into the dataframe.
-data = load_data(10000)
-# Notify the reader that the data was successfully loaded.
-data_load_state.text("Done! (using st.cache_data)")
-
 
 if selected == "Home":
-    home.main(st, data, iframe_style)
-elif selected == "Active Enrollment":       # PowerBi
-    powerBi.main(st, data, iframe_style)
-elif selected == "Financial Summary":       # Python
-    python.main(st, data, iframe_style)
-elif selected == "Enrollment Demographics": # D3.JS
-    d3js.main(st, data, iframe_style)
-elif selected == "Other":                   # Tableau
-    tableau.main(st, data, iframe_style)
-
-data_load_state.text("")
+    home.main(st)
+elif selected == "Dataset":
+    st.markdown("""
+    <h3 style='text-align: left; font-weight: bold; color: #204760; margin-bottom: -10px;'>DATASET: Student Information</h3>
+    """, unsafe_allow_html=True)
+    
+    # Note to TA
+    st.markdown("""
+    <h4 style='text-align: left; font-weight: bold; color: #FF3131; margin-bottom: -10px;'>PLEASE NOTE:</h4>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown("""
+    <div style='text-align: justify;'>
+    <strong><em>This dataset has been obtained from a real business. Student names have been removed for
+            confidentiality purposes. Please feel free to click on the "Fullscreen" option to view
+            the entire dataset.</em></strong>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Divider
+    st.image('top_data-science-divider-1.png',  width=700, output_format='auto')
+    st.write("\n\n")
+    nrows = 10000  # Define nrows here or make it adjustable by the user
+    data_load_state = st.text('Loading data...')
+    data = dataset.load_data(nrows)
+    data_load_state.text("Dataset Successfully Uploaded and Ready to View!")
+    st.write(data)
+    
+elif selected == "Active Enrollment":
+    activeEnrollment.main(st, iframe_style)
+elif selected == "Financial Analysis":
+    financialAnalysis.main(st, iframe_style)
+elif selected == "Enrollment Demographics":
+    demographics.main(st, iframe_style)

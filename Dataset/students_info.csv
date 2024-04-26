@@ -1,4 +1,4 @@
-Date,Student Name,First Name,Last Name,Sibling Name,Charge Category,Original Charge,Discount Type,Discount Amount,Adjustment,Billing Amount,Status,Gender,Age,City,State,Program,Room,Schedule,Start Time,End Time
+Date,StudentName,FirstName,LastName,SiblingName,ChargeCategory,OriginalCharge,DiscountType,DiscountAmount,Adjustment,Billing Amount,Status,Gender,Age,City,State,Program,Room,Schedule,StartTime,EndTime
 8/1/2022,Aaliyan Jangda,Aaliyan,Jangda,Zayyan,Tuition,"$1,100.00",Sibling ,-$55.00,$0.00,"$1,045.00",Active,male,4,Garland,Texas,Primary,Chevalier,5SD,8:30 AM,2:45 PM
 8/1/2022,Abdul hadi Bhangda,Abdul,hadi Bhangda,,Tuition,$950.00,Old Price Discount,$47.50,$0.00,$902.50,Inactive,male,4,Plano,Texas,Primary,Chevalier,FD,7:00 AM,6:00 PM
 8/1/2022,Abigail Esparza,Abigail,Esparza,Ragnar,Tuition,"$1,155.00",CCA Discount,-$428.89,$0.00,$726.11,Active,female,8,Richardson,Texas,Lower Elementary,Newton,FD,7:00 AM,6:00 PM
